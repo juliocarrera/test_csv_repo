@@ -1,0 +1,83 @@
+{% extends "inquiry/base_inquiry.html" %}
+{% load static %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/x-scss" href="{% static 'inquiry/scss/signup.scss' %}">
+{% endblock css %}
+
+{% block progress_wrapper %}
+  {% with progress_amount=80 %}
+    {{ block.super }}
+  {% endwith%}
+{% endblock progress_wrapper%}
+
+{% block subhead %}You’ll need to create an account to receive your personalized Investment Estimate{% endblock subhead %}
+
+{% block questions %}
+  {% load widget_tweaks %}
+
+  {{ wizard.form.non_field_errors }}
+
+  <div class="d-flex flex-column justify-content-start pb-4">
+    {# phone_number #}
+    {% include "partial_row_one_field.html" with field=wizard.form.phone_number label_titlecase=True class="tel-number" %}
+
+    <div class="d-flex flex-row align-items-start">
+      {# sms_opt_in #}
+      {% render_field wizard.form.sms_opt_in class="mr-2" %}
+      <label>
+        <div class="text-left">
+          I confirm that I am the owner of the mobile phone number
+          entered above and agree to receive phone calls or text
+          messages regarding my application from Hometap and understand that
+          message data rates may apply.
+        </div>
+      </label>
+    </div>
+  </div>
+
+  {# password1 #}
+  {% include "partial_row_one_field.html" with field=wizard.form.password1 no_help_text=True label_titlecase=True %}
+
+  <div id="password-instructions" class="hidden">
+    <p>
+      Password must contain:
+      <ul>
+        <li id="password-number"><span></span> a number</li>
+        <li id="password-lowercase"><span></span> lower case character</li>
+        <li id="password-count"><span></span> between 8 to 25 characters</li>
+      </ul>
+    </p>
+  </div>
+
+  <p id="password-match" class="hidden">
+    ✘ Passwords must match.
+  </p>
+
+  {# password2 #}
+  {% include "partial_row_one_field.html" with field=wizard.form.password2 no_help_text=True label_titlecase=True %}
+
+    <div>
+      {# agree_to_terms #}
+      <div class="d-flex pb-0">
+        <label>
+          {% render_field form.agree_to_terms class+="h-100 mr-2" %}
+          By checking this box, I agree to the following:
+        </label>
+      </div>
+      {{ form.agree_to_terms.errors }}
+      <ul>
+        <li class="mt-2">I acknowledge all this information in this application is as accurate as possible.</li>
+        <li class="mt-2">I have read and accepted the <a target="_blank" href="https://www.hometap.com/terms">terms of use</a>, <a target="_blank" href="https://www.hometap.com/privacy">privacy policy</a>, <a target="_blank" href="https://static.hometap.com/creative/documents/hometap-esign-policy.pdf" disabled>e-sign policy</a>, and <a target="_blank" href="https://static.hometap.com/creative/documents/hometap-sharing-of-info-disclosure.pdf">sharing of information disclosure</a>.</li>
+        <li class="mt-2">This does not imply a commitment from Hometap to enter an investment.</li>
+        <li class="mt-2">By clicking Finish I am providing written instructions authorizing Hometap to obtain information from my personal credit report or other information, solely for the purpose of processing my application for a Hometap Investment. &nbsp;<b>Please note - this Inquiry will not impact your credit score.</b></li>
+      </ul>
+    </div>
+
+{% endblock questions %}
+
+{% block javascript %}
+  {{ block.super }}
+  <script type="text/javascript" src="{% static 'inquiry/js/signup.js' %}"></script>
+{% endblock javascript %}

@@ -1,0 +1,37 @@
+{% extends "fit_quiz/base_fit_quiz.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/x-scss" href="{% static 'fit_quiz/scss/quiz_outcome.scss' %}">
+{% endblock css %}
+
+{% block body-content %}
+  {{ block.super }}
+  <div class="row container m-auto">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6 card shadowed p-3">
+      <div class="card-body text-center">
+        <h1 class="card-title">Fit Quiz Results</h1>
+        <p class="text-left outcome-text">{{ message }}</p>
+
+        {# Inquiry or Read More CTA #}
+        {% if cta_inquiry %}
+          <a href="{% url 'inquiry:apply' %}" class="btn btn-primary text-center m-auto">Get an Investment Estimate</a>
+          <br/>
+        {% else %}
+          <p class="text-left h5 outcome-text">Homeowners are house rich and cash poor like never before. <a href="https://www.hometap.com/blog/american-homeowners-house-rich-cash-poor-like-never-before">Read how Hometap is working to make homeownership less stressful and more accessible.</a></p>
+        {% endif %}
+
+        {# Tips Sign Up #}
+        <br/>
+        <hr/>
+        <img src="{% static 'images/tips.png' %}" width="60%" class="mb-2" />
+        <p class="text-left">Also, be sure to sign up for weekly tips and to-dos on home maintenance to help improve the value of your home!</p>
+        <a href="https://www.hometap.com/hometap-tips" target="_blank" class="btn btn-light m-auto">Sign Up</a>
+      </div>
+    </div>
+    <div class="col-lg-3"></div>
+  </div>
+{% endblock body-content %}

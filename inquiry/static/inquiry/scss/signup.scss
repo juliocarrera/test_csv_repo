@@ -1,0 +1,21 @@
+#password-match,
+#password-instructions {
+  // height: 0;
+  // transform: translateY(-100%);
+  background-color: rgba(0,0,0,0.01);
+  padding: 18px;
+  border-radius: 3px;
+  border: none;
+  box-shadow: 0 1px -3px rgba(0,0,0,0.3);
+  z-index: 1000;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 320px;
+  // transition: height 0.3s;
+}
+
+#password-instructions ul {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}

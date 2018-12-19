@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}Hometap Estimate{% endblock title %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/x-scss" href="{% static 'scss/public_form.scss' %}">
+{% endblock css %}
+
+{% block navbar-extra %}
+  {{ block.super }}
+  {% block progress_wrapper %}
+    <div class="progress">
+      <div class="progress-bar progress-bar-success progress-bar" role="progressbar"
+      aria-valuenow="{{ progress_amount }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ progress_amount }}%">
+      </div>
+    </div>
+  {% endblock progress_wrapper%}
+{% endblock navbar-extra %}
+
+{% block body-content %}
+  {{ block.super }}
+
+  <div class="header">
+    <h2>Get Your Hometap Investment Estimate</h2>
+    <h4>{% block subhead %}{% endblock subhead %}</h4>
+  </div>
+
+  <div class="form-container container">
+
+    <form class="{% block form_class %}{% endblock form_class %}" method="post" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+      {{ wizard.form.media }}  {# used for widgets, Google Maps #}
+      {{ wizard.management_form }}  {# used for steps buttons #}
+
+      {% block questions %}{% endblock questions %}
+      <br/>
+      <div class="steps">
+        {# TODO(Charlie): disable next button until form is complete #}
+        <input id="inquiry-submit-btn" class="btn btn-primary btn-lg" type="submit" name="submit" value="{% if wizard.steps.current == wizard.steps.last %}Finish{% else %}Next{% endif %}"/>
+        {% if wizard.steps.prev %}
+          <button class="btn btn-secondary btn-lg" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Back</button>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+  {% if demo %}
+    {# "demo" button in footer for using dummy data during testing #}
+    {% include "partial_demo_footer.html" %}
+  {% endif %}
+
+{% endblock body-content %}
+
+{% block javascript %}
+  {{ block.super }}
+    <script type="text/javascript" src="{% static 'inquiry/js/demo.js' %}"></script>
+{% endblock javascript %}

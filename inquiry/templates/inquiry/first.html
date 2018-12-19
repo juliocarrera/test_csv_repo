@@ -1,0 +1,42 @@
+{% extends "inquiry/base_inquiry.html" %}
+{% load static %}
+{% load widget_tweaks %} {# tweaks such as render_field #}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/x-scss" href="{% static 'inquiry/scss/address.scss' %}">
+{% endblock css %}
+
+{% block progress_wrapper %}
+  {% with progress_amount=20 %}
+    {{ block.super }}
+  {% endwith%}
+{% endblock progress_wrapper%}
+
+{% block subhead %}Tell us a little about yourself{% endblock subhead %}
+
+{% block questions %}
+  {% load widget_tweaks %}
+
+  {{ wizard.form.non_field_errors }}
+
+  {% include "partial_address_fields.html" with form=wizard.form %}
+
+  <div class="checkbox-options">
+    <label>How will you use the investment?</label>
+    {% include "partial_use_case_fields.html" with form=wizard.form %}
+  </div>
+
+  {# email #}
+  {% include "partial_row_one_field.html" with field=wizard.form.email label_titlecase=True %}
+
+{% endblock questions %}
+
+{% block uncompressed_javascript %}
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmrzfRpTaJscp9Z-qsDHnVFZev8jI5Jf4&libraries=places"></script>
+{% endblock uncompressed_javascript %}
+
+{% block javascript %}
+  {{ block.super }}
+  <script type="text/javascript" src="{% static 'js/address.js' %}"></script>
+{% endblock javascript %}

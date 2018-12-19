@@ -1,0 +1,34 @@
+{% extends "inquiry/base_inquiry.html" %}
+{% load static %}
+
+{% block progress_wrapper %}
+  {% with progress_amount=60 %}
+    {{ block.super }}
+  {% endwith%}
+{% endblock progress_wrapper%}
+
+{% block subhead %}Just a little more information please{% endblock subhead %}
+
+{% block questions %}
+  {% load widget_tweaks %}
+
+  {{ wizard.form.non_field_errors }}
+
+  {# first_name last_name #}
+  {% include "partial_row_two_fields.html" with field_1=wizard.form.first_name field_2=wizard.form.last_name %}
+
+  {# referrer_name #}
+  {% include "partial_row_one_field.html" with field=wizard.form.referrer_name %}
+
+  {# when_interested #}
+  {% include "partial_row_one_field.html" with field=wizard.form.when_interested %}
+
+  {# notes #}
+  {% include "partial_row_one_field.html" with field=wizard.form.notes %}
+
+{% endblock questions %}
+
+{% block javascript %}
+  {{ block.super }}
+  <script type="text/javascript" src="{% static 'js/partial_row_field_help.js' %}"></script>
+{% endblock javascript %}

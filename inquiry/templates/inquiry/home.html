@@ -1,0 +1,45 @@
+{% extends "inquiry/base_inquiry.html" %}
+{% load static %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/x-scss" href="{% static 'inquiry/scss/home.scss' %}">
+{% endblock css %}
+
+{# pass progress_amount to base_inquiry to configure progress bar #}
+{% block progress_wrapper %}
+  {% with progress_amount=40 %}
+    {{ block.super }}
+  {% endwith%}
+{% endblock progress_wrapper%}
+
+{# pass subheader text to base_inquiry #}
+{% block subhead %}Tell us a little about your home{% endblock subhead %}
+
+{% block questions %}
+  {# load tweaks such as render_field #}
+  {% load widget_tweaks %}
+
+  {# render form-level errors #}
+  {{ wizard.form.non_field_errors }}
+
+  {# property_type #}
+  {% include "partial_row_one_field.html" with field=wizard.form.property_type %}
+
+  {# primary_residence #}
+  <div class="child-row-inline-ul">
+    {% include "partial_row_one_field.html" with field=wizard.form.primary_residence %}
+  </div>
+
+  {# rent_type #}
+  {% include "partial_row_one_field.html" with field=wizard.form.rent_type %}
+
+  {# home_value #}
+  {% include "partial_row_one_field.html" with field=wizard.form.home_value class="input-dollar comma-number" step="1000" %}
+
+  {# household_debt #}
+  {% include "partial_row_one_field.html" with field=wizard.form.household_debt class="input-dollar comma-number" step="1000" %}
+
+  {# ten_year_duration_prediction #}
+  {% include "partial_row_one_field.html" with field=wizard.form.ten_year_duration_prediction %}
+{% endblock questions %}

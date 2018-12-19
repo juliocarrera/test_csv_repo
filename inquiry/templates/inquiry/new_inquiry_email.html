@@ -1,0 +1,5 @@
+{% autoescape off %}
+    {{ first_name }} {{ last_name }} has submitted an Investment Inquiry.
+
+    Log in and view it at https://{{ domain }}{% url 'custom_auth:login_reviewer' %}
+{% endautoescape %}

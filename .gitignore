@@ -1,0 +1,39 @@
+# Common
+__pycache__/
+*.py[cod]
+*.sw[op]
+.DS_Store
+*.db
+*.pem
+
+# Emacs back up files
+*~
+
+# log file
+portals/portals/logs/*
+
+# sass cache from docs version of base.css
+.sass-cache/*
+
+# Sphinx Docs
+docs/build/
+
+# docs bootstrap & jquery
+docs/source/js/jquery.min.js
+docs/source/js/bootstrap.min.js
+docs/source/css/bootstrap.min.css
+
+# Elastic Beanstalk Files
+portals/.elasticbeanstalk/*
+!portals/.elasticbeanstalk/*.cfg.yml
+!portals/.elasticbeanstalk/*.global.yml
+
+db.sqlite3
+
+assets
+media_private
+media_private_test
+components
+
+# selenium firefox logs
+geckodriver.log
