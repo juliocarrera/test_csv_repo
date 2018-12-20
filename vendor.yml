@@ -11,6 +11,7 @@
 
 # CSV files
 - (^|/)*\.csv$
+- zip_code_forecast.csv
 
 # Caches
 - (^|/)cache/
